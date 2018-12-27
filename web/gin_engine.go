@@ -1,5 +1,4 @@
-package engine
+package web
 
 type GinEngine struct {
-
 }
