@@ -1,34 +1,40 @@
 package web
 
 import (
-	"context"
 	"log"
 )
 
 type RouterGroup interface {
-	GET(relativePath string, middlewareFunc MiddlewareFunc)
+	GET(path string, middlewareFunc MiddlewareFunc)
 
-	POST(relativePath string, middlewareFunc MiddlewareFunc)
+	POST(path string, middlewareFunc MiddlewareFunc)
 
-	PUT(relativePath string, middlewareFunc MiddlewareFunc)
+	PUT(path string, middlewareFunc MiddlewareFunc)
 
-	HEAD(relativePath string, middlewareFunc MiddlewareFunc)
+	DELETE(path string, middlewareFunc MiddlewareFunc)
 
-	DELETE(relativePath string, middlewareFunc MiddlewareFunc)
+	PATCH(path string, middlewareFunc MiddlewareFunc)
 
-	OPTION(relativePath string, middlewareFunc MiddlewareFunc)
+	HEAD(path string, middlewareFunc MiddlewareFunc)
+
+	OPTIONS(path string, middlewareFunc MiddlewareFunc)
+
+	TRACE(path string, middlewareFunc MiddlewareFunc)
+
+	CONNECT(path string, middlewareFunc MiddlewareFunc)
 }
 
 type Engine interface {
 	RouterGroup
+
 	SetLogger(logger *log.Logger)
 
-	Use(middlewareFunc MiddlewareFunc)
+	Use(middlewareArray ...MiddlewareFunc)
 
-	Group(relativePath string, middlewares ...MiddlewareFunc) RouterGroup
+	Group(path string, middlewareArray ...MiddlewareFunc) RouterGroup
 }
 
-type MiddlewareFunc func(c *context.Context) error
+type MiddlewareFunc func(c Context) error
 
 type Context interface {
 	Request()

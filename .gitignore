@@ -3,3 +3,5 @@
 .sublime
 .vscode
 *.iml
+go.sum
+vendor
