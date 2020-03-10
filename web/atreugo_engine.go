@@ -1,84 +1,100 @@
 package web
 
 import (
-	"github.com/savsgio/atreugo/v10"
 	"log"
+
+	"github.com/savsgio/atreugo/v10"
 )
 
+// AtreugoEngine The atreugo implementation of engine
 type AtreugoEngine struct {
 	delegate *atreugo.Atreugo
 }
 
+//NewAtreugoEngine alloc new mem for atreugo impl engine from map config and give out the pointer
 func NewAtreugoEngine(config map[string]interface{}) *AtreugoEngine {
 	return &AtreugoEngine{atreugo.New(atreugo.Config{})}
 }
 
+//ToContext Convert atreugo RequestCtx to Context
 func ToContext(ctx *atreugo.RequestCtx) Context {
 	return nil //TODO
 }
 
-func (atreugoEngine *AtreugoEngine) GET(path string, middlewareFunc MiddlewareFunc) {
+//GET in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) GET(path string, process Process) {
 	atreugoEngine.delegate.GET(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) POST(path string, middlewareFunc MiddlewareFunc) {
+//POST in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) POST(path string, process Process) {
 	atreugoEngine.delegate.POST(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) PUT(path string, middlewareFunc MiddlewareFunc) {
+//PUT in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) PUT(path string, process Process) {
 	atreugoEngine.delegate.PUT(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) DELETE(path string, middlewareFunc MiddlewareFunc) {
+//DELETE in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) DELETE(path string, process Process) {
 	atreugoEngine.delegate.DELETE(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) PATCH(path string, middlewareFunc MiddlewareFunc) {
+//PATCH in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) PATCH(path string, process Process) {
 	atreugoEngine.delegate.PATCH(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) HEAD(path string, middlewareFunc MiddlewareFunc) {
+//HEAD in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) HEAD(path string, process Process) {
 	atreugoEngine.delegate.HEAD(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) OPTIONS(path string, middlewareFunc MiddlewareFunc) {
+//OPTIONS in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) OPTIONS(path string, process Process) {
 	atreugoEngine.delegate.OPTIONS(path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) TRACE(path string, middlewareFunc MiddlewareFunc) {
+//TRACE in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) TRACE(path string, process Process) {
 	atreugoEngine.delegate.Path("TRACE", path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
-func (atreugoEngine *AtreugoEngine) CONNECT(path string, middlewareFunc MiddlewareFunc) {
+//CONNECT in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) CONNECT(path string, process Process) {
 	atreugoEngine.delegate.Path("CONNECT", path, func(ctx *atreugo.RequestCtx) error {
-		return middlewareFunc(ToContext(ctx))
+		return process(ToContext(ctx))
 	})
 }
 
+//SetLogger in AtreugoEngine
 func (atreugoEngine *AtreugoEngine) SetLogger(logger *log.Logger) {
 
 }
 
-func (atreugoEngine *AtreugoEngine) Use(middlewareArray ...MiddlewareFunc) {
+//Use in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) Use(processArray ...Process) {
 
 }
 
-func (atreugo *AtreugoEngine) Group(path string, middlewareArray ...MiddlewareFunc) RouterGroup {
+//Group in AtreugoEngine
+func (atreugoEngine *AtreugoEngine) Group(path string, processArray ...Process) RouterGroup {
 	return nil
 }

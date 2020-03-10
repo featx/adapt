@@ -4,42 +4,53 @@ import (
 	"log"
 )
 
+//RouterGroup type of router
 type RouterGroup interface {
-	GET(path string, middlewareFunc MiddlewareFunc)
+	GET(path string, process Process)
 
-	POST(path string, middlewareFunc MiddlewareFunc)
+	POST(path string, process Process)
 
-	PUT(path string, middlewareFunc MiddlewareFunc)
+	PUT(path string, process Process)
 
-	DELETE(path string, middlewareFunc MiddlewareFunc)
+	DELETE(path string, process Process)
 
-	PATCH(path string, middlewareFunc MiddlewareFunc)
+	PATCH(path string, process Process)
 
-	HEAD(path string, middlewareFunc MiddlewareFunc)
+	HEAD(path string, process Process)
 
-	OPTIONS(path string, middlewareFunc MiddlewareFunc)
+	OPTIONS(path string, process Process)
 
-	TRACE(path string, middlewareFunc MiddlewareFunc)
+	TRACE(path string, process Process)
 
-	CONNECT(path string, middlewareFunc MiddlewareFunc)
+	CONNECT(path string, process Process)
 }
 
+//Engine type of router
 type Engine interface {
 	RouterGroup
 
 	SetLogger(logger *log.Logger)
 
-	Use(middlewareArray ...MiddlewareFunc)
+	Use(processArray ...Process)
 
-	Group(path string, middlewareArray ...MiddlewareFunc) RouterGroup
+	Group(path string, process ...Process) RouterGroup
 }
 
-type MiddlewareFunc func(c Context) error
+//Request a collection of request
+type Request interface {
+}
 
+//Response a collection of Response
+type Response interface {
+}
+
+//Context type of router
 type Context interface {
-	Request()
+	Request() Request
 
-	Response()
+	Response() Response
+
+	TEXT()
 
 	HTML()
 
@@ -49,3 +60,6 @@ type Context interface {
 
 	XML()
 }
+
+//Process type of function , expressing the middleware mainly to do
+type Process func(c Context) error
