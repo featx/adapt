@@ -3,6 +3,7 @@ package engine
 import (
 	"github.com/featx/goin/web/types"
 	"log"
+	"net"
 
 	"github.com/featx/goin/web/context"
 	"github.com/savsgio/atreugo/v11"
@@ -24,10 +25,11 @@ func toAtreugoConfig(config types.Config) atreugo.Config {
 }
 
 func (atreugoEngine *AtreugoEngine) Start(args string) error {
-	config := toAtreugoConfig(atreugoEngine.config)
-	config.Addr = args
-	atreugoEngine.delegate = atreugo.New(config)
-	return atreugoEngine.delegate.ListenAndServe()
+	l, err := net.Listen("tcp", args)
+	if err != nil {
+		return err
+	}
+	return atreugoEngine.delegate.Serve(l)
 }
 
 func (atreugoEngine *AtreugoEngine) ListenAndServe() error {

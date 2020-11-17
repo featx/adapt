@@ -4,14 +4,14 @@ go 1.15
 
 require (
 	// IOCs
-	go.uber.org/dig v1.10.0
-	github.com/google/wire v0.4.0
+	//go.uber.org/dig v1.10.0
+	//github.com/google/wire v0.4.0
 	//github.com/facebookgo/inject v
 
 	//Webs
 	github.com/valyala/fasthttp v1.17.0
 
-	github.com/gorilla/mux v1.8.0
+	//github.com/gorilla/mux v1.8.0
 	github.com/zenazn/goji v1.0.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/labstack/echo/v4 v4.1.17
@@ -23,5 +23,5 @@ require (
 	// Loggers
 
 	//ORMS
-	xorm.io/xorm v1.0.5
+	xorm.io/xorm v1.0.5 // indirect
 )
