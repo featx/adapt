@@ -1,6 +1,7 @@
-package web
+package engine
 
 import (
+	"github.com/featx/goin/web"
 	"github.com/valyala/fasthttp"
 	"log"
 	"net/http"
@@ -12,11 +13,11 @@ import (
 type GorillaEngine struct {
 	httpServer *http.Server
 	fastServer *fasthttp.Server
-	config     Config
+	config     web.Config
 }
 
 //NewAtreugoEngine alloc new mem for atreugo impl engine from map config and give out the pointer
-func NewGorillaEngine(config Config) Engine {
+func NewGorillaEngine(config web.Config) web.Engine {
 	return &GorillaEngine{&http.Server{}, &fasthttp.Server{}, config}
 }
 
@@ -36,56 +37,56 @@ func (gorillaEngine *GorillaEngine) SetLogger(logger *log.Logger) {
 }
 
 //Use in GorillaEngine
-func (gorillaEngine *GorillaEngine) Use(processArray ...Process) {
+func (gorillaEngine *GorillaEngine) Use(processArray ...web.Process) {
 
 }
 
 //Group in GorillaEngine
-func (gorillaEngine *GorillaEngine) Group(path string, processArray ...Process) RouterGroup {
+func (gorillaEngine *GorillaEngine) Group(path string, processArray ...web.Process) web.RouterGroup {
 	return nil
 }
 
 //GET in GorillaEngine
-func (gorillaEngine *GorillaEngine) GET(path string, process Process) {
+func (gorillaEngine *GorillaEngine) GET(path string, process web.Process) {
 
 }
 
 //POST in GorillaEngine
-func (gorillaEngine *GorillaEngine) POST(path string, process Process) {
+func (gorillaEngine *GorillaEngine) POST(path string, process web.Process) {
 
 }
 
 //PUT in GorillaEngine
-func (gorillaEngine *GorillaEngine) PUT(path string, process Process) {
+func (gorillaEngine *GorillaEngine) PUT(path string, process web.Process) {
 
 }
 
 //DELETE in GorillaEngine
-func (gorillaEngine *GorillaEngine) DELETE(path string, process Process) {
+func (gorillaEngine *GorillaEngine) DELETE(path string, process web.Process) {
 
 }
 
 //PATCH in GorillaEngine
-func (gorillaEngine *GorillaEngine) PATCH(path string, process Process) {
+func (gorillaEngine *GorillaEngine) PATCH(path string, process web.Process) {
 
 }
 
 //HEAD in GorillaEngine
-func (gorillaEngine *GorillaEngine) HEAD(path string, process Process) {
+func (gorillaEngine *GorillaEngine) HEAD(path string, process web.Process) {
 
 }
 
 //OPTIONS in GorillaEngine
-func (gorillaEngine *GorillaEngine) OPTIONS(path string, process Process) {
+func (gorillaEngine *GorillaEngine) OPTIONS(path string, process web.Process) {
 
 }
 
 //TRACE in GorillaEngine
-func (gorillaEngine *GorillaEngine) TRACE(path string, process Process) {
+func (gorillaEngine *GorillaEngine) TRACE(path string, process web.Process) {
 
 }
 
 //CONNECT in GorillaEngine
-func (gorillaEngine *GorillaEngine) CONNECT(path string, process Process) {
+func (gorillaEngine *GorillaEngine) CONNECT(path string, process web.Process) {
 
 }

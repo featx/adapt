@@ -3,36 +3,14 @@ package web
 import (
 	"log"
 	"strings"
+
+	engines "github.com/featx/goin/web/engine"
 )
-
-//Request a collection of request
-type Request interface {
-}
-
-//Response a collection of Response
-type Response interface {
-}
-
-//Context type of router
-type Context interface {
-	Request() Request
-
-	Response() Response
-
-	TEXT()
-
-	HTML()
-
-	JSON()
-
-	JSONP()
-
-	XML()
-}
 
 //Process type of function , expressing the middleware mainly to do
 type Process func(Context) error
 
+//Process chain
 type Middleware func(Process) Process
 
 type ErrorHandler func(error, Context)
@@ -103,19 +81,19 @@ func EngineEnumOf(engine string) EngineEnum {
 func New(engine EngineEnum, config Config) Engine {
 	switch engine {
 	case ATREUGO:
-		return NewAtreugoEngine(config)
+		return engines.NewAtreugoEngine(config)
 	case ECHO:
-		return NewEchoEngine(config)
+		return engines.NewEchoEngine(config)
 	case GIN:
-		return NewGinEngine(config)
+		return engines.NewGinEngine(config)
 	case GORILLA:
-		return NewGorillaEngine(config)
+		return engines.NewGorillaEngine(config)
 	case GOJI:
-		return NewGojiEngine(config)
+		return engines.NewGojiEngine(config)
 	//case "iris": return &IrisEngine{}
 	//case "revel": return &RevelEngine{}
 	//case "buffalo": return &BuffaloEngine{}
 	default:
-		return NewGorillaEngine(config)
+		return engines.NewGorillaEngine(config)
 	}
 }
