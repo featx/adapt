@@ -2,6 +2,7 @@ package web
 
 import (
 	"log"
+	"strings"
 )
 
 //Request a collection of request
@@ -72,22 +73,49 @@ type Engine interface {
 	Group(path string, process ...Process) RouterGroup
 }
 
-func New(engine string, config Config) Engine {
-	switch engine {
+type EngineEnum int32
+
+const (
+	GORILLA EngineEnum = 1
+	GOJI    EngineEnum = 2
+	GIN     EngineEnum = 3
+	ECHO    EngineEnum = 4
+	ATREUGO EngineEnum = 5
+)
+
+func EngineEnumOf(engine string) EngineEnum {
+	switch strings.ToLower(strings.TrimSpace(engine)) {
 	case "atreugo":
-		return NewAtreugoEngine(config)
+		return ATREUGO
 	case "echo":
-		return NewEchoEngine(config)
+		return ECHO
 	case "gin":
-		return NewGinEngine(config)
+		return GIN
 	case "gorilla":
-		return NewGorillaEngine(config)
+		return GORILLA
 	case "goji":
+		return GOJI
+	default:
+		return GORILLA
+	}
+}
+
+func New(engine EngineEnum, config Config) Engine {
+	switch engine {
+	case ATREUGO:
+		return NewAtreugoEngine(config)
+	case ECHO:
+		return NewEchoEngine(config)
+	case GIN:
+		return NewGinEngine(config)
+	case GORILLA:
+		return NewGorillaEngine(config)
+	case GOJI:
 		return NewGojiEngine(config)
 	//case "iris": return &IrisEngine{}
 	//case "revel": return &RevelEngine{}
 	//case "buffalo": return &BuffaloEngine{}
 	default:
-		return NewAtreugoEngine(config)
+		return NewGorillaEngine(config)
 	}
 }
