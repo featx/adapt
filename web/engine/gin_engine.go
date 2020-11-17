@@ -1,7 +1,7 @@
 package engine
 
 import (
-	"github.com/featx/goin/web"
+	"github.com/featx/goin/web/types"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -9,10 +9,10 @@ import (
 
 type GinEngine struct {
 	delegate *gin.Engine
-	config   web.Config
+	config   types.Config
 }
 
-func NewGinEngine(config web.Config) web.Engine {
+func NewGinEngine(config types.Config) types.Engine {
 	return &GinEngine{gin.New(), config}
 }
 
@@ -31,12 +31,12 @@ func (ginEngine *GinEngine) SetLogger(logger *log.Logger) {
 }
 
 //ToContext Convert atreugo RequestCtx to Context
-func fromGinContext(ctx *gin.Context) web.Context {
+func fromGinContext(ctx *gin.Context) types.Context {
 	return nil
 }
 
 //Use in GinEngine
-func (ginEngine *GinEngine) Use(processArray ...web.Process) {
+func (ginEngine *GinEngine) Use(processArray ...types.Process) {
 	middlewares := make([]gin.HandlerFunc, len(processArray))
 	for i, process := range processArray {
 		middlewares[i] = func(ctx *gin.Context) {
@@ -50,7 +50,7 @@ func (ginEngine *GinEngine) Use(processArray ...web.Process) {
 }
 
 //Group in GinEngine
-func (ginEngine *GinEngine) Group(path string, processArray ...web.Process) web.RouterGroup {
+func (ginEngine *GinEngine) Group(path string, processArray ...types.Process) types.RouterGroup {
 	middlewares := make([]gin.HandlerFunc, len(processArray))
 	for i, process := range processArray {
 		middlewares[i] = func(ctx *gin.Context) {
@@ -66,7 +66,7 @@ func (ginEngine *GinEngine) Group(path string, processArray ...web.Process) web.
 }
 
 //GET in GinEngine
-func (ginEngine *GinEngine) GET(path string, process web.Process) {
+func (ginEngine *GinEngine) GET(path string, process types.Process) {
 	ginEngine.delegate.GET(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -76,7 +76,7 @@ func (ginEngine *GinEngine) GET(path string, process web.Process) {
 }
 
 //POST in GinEngine
-func (ginEngine *GinEngine) POST(path string, process web.Process) {
+func (ginEngine *GinEngine) POST(path string, process types.Process) {
 	ginEngine.delegate.POST(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -86,7 +86,7 @@ func (ginEngine *GinEngine) POST(path string, process web.Process) {
 }
 
 //PUT in GinEngine
-func (ginEngine *GinEngine) PUT(path string, process web.Process) {
+func (ginEngine *GinEngine) PUT(path string, process types.Process) {
 	ginEngine.delegate.PUT(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -96,7 +96,7 @@ func (ginEngine *GinEngine) PUT(path string, process web.Process) {
 }
 
 //DELETE in GinEngine
-func (ginEngine *GinEngine) DELETE(path string, process web.Process) {
+func (ginEngine *GinEngine) DELETE(path string, process types.Process) {
 	ginEngine.delegate.DELETE(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -106,7 +106,7 @@ func (ginEngine *GinEngine) DELETE(path string, process web.Process) {
 }
 
 //PATCH in GinEngine
-func (ginEngine *GinEngine) PATCH(path string, process web.Process) {
+func (ginEngine *GinEngine) PATCH(path string, process types.Process) {
 	ginEngine.delegate.PATCH(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -116,7 +116,7 @@ func (ginEngine *GinEngine) PATCH(path string, process web.Process) {
 }
 
 //HEAD in GinEngine
-func (ginEngine *GinEngine) HEAD(path string, process web.Process) {
+func (ginEngine *GinEngine) HEAD(path string, process types.Process) {
 	ginEngine.delegate.HEAD(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -126,7 +126,7 @@ func (ginEngine *GinEngine) HEAD(path string, process web.Process) {
 }
 
 //OPTIONS in GinEngine
-func (ginEngine *GinEngine) OPTIONS(path string, process web.Process) {
+func (ginEngine *GinEngine) OPTIONS(path string, process types.Process) {
 	ginEngine.delegate.OPTIONS(path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -136,7 +136,7 @@ func (ginEngine *GinEngine) OPTIONS(path string, process web.Process) {
 }
 
 //TRACE in GinEngine
-func (ginEngine *GinEngine) TRACE(path string, process web.Process) {
+func (ginEngine *GinEngine) TRACE(path string, process types.Process) {
 	ginEngine.delegate.Handle("trace", path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {
@@ -146,7 +146,7 @@ func (ginEngine *GinEngine) TRACE(path string, process web.Process) {
 }
 
 //CONNECT in GinEngine
-func (ginEngine *GinEngine) CONNECT(path string, process web.Process) {
+func (ginEngine *GinEngine) CONNECT(path string, process types.Process) {
 	ginEngine.delegate.Handle("connect", path, func(ctx *gin.Context) {
 		err := process(fromGinContext(ctx))
 		if err != nil {

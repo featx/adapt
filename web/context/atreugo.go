@@ -1,7 +1,7 @@
 package context
 
 import (
-	"github.com/featx/goin/web"
+	"github.com/featx/goin/web/types"
 	"github.com/savsgio/atreugo/v11"
 )
 
@@ -9,11 +9,11 @@ type AtreugoContext struct {
 	delegate *atreugo.RequestCtx
 }
 
-func (ctx *AtreugoContext) Request() web.Request {
+func (ctx *AtreugoContext) Request() types.Request {
 	return nil
 }
 
-func (ctx *AtreugoContext) Response() web.Response {
+func (ctx *AtreugoContext) Response() types.Response {
 	return nil
 }
 
@@ -32,6 +32,6 @@ func (ctx *AtreugoContext) JSON(object interface{}) {
 }
 
 //ToContext Convert atreugo RequestCtx to Context
-func FromAtreugoCtx(ctx *atreugo.RequestCtx) web.Context {
+func FromAtreugoCtx(ctx *atreugo.RequestCtx) types.Context {
 	return &AtreugoContext{ctx}
 }

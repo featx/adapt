@@ -1,10 +1,8 @@
-package web
+package types
 
 import (
 	"log"
 	"strings"
-
-	engines "github.com/featx/goin/web/engine"
 )
 
 //Process type of function , expressing the middleware mainly to do
@@ -75,25 +73,5 @@ func EngineEnumOf(engine string) EngineEnum {
 		return GOJI
 	default:
 		return GORILLA
-	}
-}
-
-func New(engine EngineEnum, config Config) Engine {
-	switch engine {
-	case ATREUGO:
-		return engines.NewAtreugoEngine(config)
-	case ECHO:
-		return engines.NewEchoEngine(config)
-	case GIN:
-		return engines.NewGinEngine(config)
-	case GORILLA:
-		return engines.NewGorillaEngine(config)
-	case GOJI:
-		return engines.NewGojiEngine(config)
-	//case "iris": return &IrisEngine{}
-	//case "revel": return &RevelEngine{}
-	//case "buffalo": return &BuffaloEngine{}
-	default:
-		return engines.NewGorillaEngine(config)
 	}
 }

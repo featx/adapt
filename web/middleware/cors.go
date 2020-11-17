@@ -1,17 +1,17 @@
 package middleware
 
 import (
-	"github.com/featx/goin/web"
+	"github.com/featx/goin/web/types"
 )
 
 type CORSConfig struct {
-	Skipper      func(web.Context) bool
+	Skipper      func(types.Context) bool
 	AllowOrigins []string
 	AllowMethods []string
 }
 
-func CORSWithConfig(config CORSConfig) web.Process {
-	return func(context web.Context) error {
+func CORSWithConfig(config CORSConfig) types.Process {
+	return func(context types.Context) error {
 		return nil
 	}
 }
