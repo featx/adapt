@@ -32,3 +32,14 @@ func ConfigLogger(logConfig LoggerConfig) *log.Logger {
 	}
 	return log.New(os.Stdout, logConfig.Prefix, flag)
 }
+
+func MapLoggerConfigs(logConfigs []LoggerConfig) map[string]LoggerConfig {
+	if logConfigs == nil {
+		return nil
+	}
+	result := make(map[string]LoggerConfig)
+	for _, logConfig := range logConfigs {
+		result[logConfig.Name] = logConfig
+	}
+	return result
+}
