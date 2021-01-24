@@ -1,6 +1,9 @@
 package types
 
+import "log"
+
 type Config struct {
+	Logger *log.Logger
 }
 
 type Request interface {

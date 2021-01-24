@@ -13,7 +13,7 @@ require (
 	//github.com/facebookgo/inject v
 
 	//Webs
-	github.com/valyala/fasthttp v1.17.0
+	github.com/valyala/fasthttp v1.19.0
 
 	//github.com/gorilla/mux v1.8.0
 	github.com/zenazn/goji v1.0.1

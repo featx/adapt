@@ -21,7 +21,7 @@ func NewAtreugoEngine(config types.Config) types.Engine {
 }
 
 func toAtreugoConfig(config types.Config) atreugo.Config {
-	return atreugo.Config{}
+	return atreugo.Config{Logger: config.Logger}
 }
 
 func (atreugoEngine *AtreugoEngine) Start(args string) error {
@@ -38,7 +38,8 @@ func (atreugoEngine *AtreugoEngine) ListenAndServe() error {
 
 //SetLogger in AtreugoEngine
 func (atreugoEngine *AtreugoEngine) SetLogger(logger *log.Logger) {
-	atreugoEngine.delegate.SetLogOutput(logger.Writer())
+	//atreugo before 11.6.0: atreugoEngine.delegate.SetLogOutput(logger.Writer())
+	logger.Println("Since used fastserver inside logger, init atreugo's logger in Config, please")
 }
 
 //Use in AtreugoEngine
